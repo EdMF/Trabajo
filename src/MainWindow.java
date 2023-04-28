@@ -1,7 +1,13 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Locale;
+
+/**
+ * EDUARDO MOLINA FELIPE
+ */
 
 public class MainWindow extends JFrame {
     private JCheckBox inspeccionadoEnAduanasCheckBox;
@@ -34,9 +40,12 @@ public class MainWindow extends JFrame {
     private JTextField txtCuantas;
     private JLabel lbOperacion;
     private JLabel lbEstado;
-    private JTextArea estadoText;//Poner en la interfaz
-    private JLabel erroresJField; //Poner en la interfaz
-    private JLabel estadoJLabel; //Poner en la interfaz
+    private JButton pesoTotal;
+    private JTextArea estadoText;
+    private JLabel erroresJField;
+    private JLabel estadoJLabel;
+
+
 
 //---------------------------------------------------------
 
@@ -62,7 +71,11 @@ public class MainWindow extends JFrame {
         pack();
 
         BoxPais.setModel(new DefaultComboBoxModel(paises));
-        txtEstado.setText(matriz.toString());
+
+        //txtEstado.setText(matriz.toString());
+
+
+
 
         rb1.addActionListener(new ActionListener() {
             @Override
@@ -135,7 +148,9 @@ public class MainWindow extends JFrame {
 
                 Contenedores cont = new Contenedores(id,pesoC,prioridad,pais,contenido,empresa,empresaRecibe,inspeccionado);
 
+
                 nHub = puerto.insertaEnHub(cont) +1 ;
+
                 if (nHub != -1) {
                     erroresJField.setText("¡Contenedor apilado!");
                     estadoText.setText(puerto.getHub(nHub-1).toString());
@@ -152,6 +167,32 @@ public class MainWindow extends JFrame {
 
 
         );
+        pesoTotal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JOptionPane.showMessageDialog(null,matriz.pesoTotalHUB());
+
+            }
+        });
+        txtEstado.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+
+                System.out.println("OCUPACION DEL HUB \n");
+                for (int i = 0; i < matriz.c.length; i++) {
+                    for (int j = 0; j < matriz.c[i].length; j++) {
+
+                        System.out.println("|");
+                        if(matriz.c[i][j] != null){
+                            System.out.println(matriz.c[i][j].getId()+"-"+matriz.c[i][j].getPesoC());
+                        }
+                        System.out.println("\n");
+                    }
+                }
+
+            }
+        });
     }
 
 

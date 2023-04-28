@@ -28,13 +28,14 @@ public class Contenedores {
 
     public void setId(){this.id = id;}
     public int getPesoC() {
-        return pesoC;
+        return this.pesoC;
     }
 
     public void setPesoC(int pesoC) {
         if(pesoC >0) this.pesoC = pesoC;
         else pesoC = 1;
     }
+
 
     public int getPrioridad() {
         return prioridad;

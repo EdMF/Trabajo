@@ -1,5 +1,5 @@
 public class Hub {
-    private Contenedores[][] c;
+    public Contenedores[][] c;
     private static int nContenedor = 1;  //asignaremos este ID a cada contenedor antes de apila
 
     public Hub(){
@@ -129,6 +129,18 @@ public class Hub {
         }
         return q;
 
+    }
+    public int pesoTotalHUB(){
+        int total=0;
+        for (int i = 0; i < c.length; i++) {
+            for (int j = 0; j < c[i].length; j++) {
+
+                total+=c[i][j].getPesoC();
+
+            }
+        }
+
+    return total;
     }
 
 
